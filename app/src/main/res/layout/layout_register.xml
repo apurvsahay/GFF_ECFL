@@ -25,11 +25,29 @@
             android:layout_marginTop="@dimen/signup_text_margin_top">
 
             <EditText
+                android:id="@+id/editTextEmailRegister"
+                style="@style/loginCard"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:background="@color/whiteCardColor"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="#9C27B0"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent"
+            android:layout_marginTop="@dimen/signup_text_margin_top">
+
+            <EditText
+                android:id="@+id/editTextTeamRegister"
                 style="@style/loginCard"
                 android:hint="Team Name"
                 android:inputType="text"
                 android:background="@color/whiteCardColor"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="#9C27B0"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -37,11 +55,14 @@
             android:layout_marginTop="@dimen/signup_text_margin_top">
 
             <EditText
+                android:id="@+id/editTextTeamLeaderRegister"
                 style="@style/loginCard"
                 android:background="@color/whiteCardColor"
                 android:hint="Team Leader Name "
                 android:inputType="text"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="#9C27B0"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -49,11 +70,14 @@
             android:layout_marginTop="@dimen/signup_text_margin_top">
 
             <EditText
+                android:id="@+id/editTextTeamMemberRegister"
                 style="@style/loginCard"
                 android:background="@color/whiteCardColor"
                 android:hint="2nd participant Name (if any)"
                 android:inputType="text"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="#9C27B0"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -61,11 +85,14 @@
             android:layout_marginTop="@dimen/signup_text_margin_top">
 
             <EditText
+                android:id="@+id/editTextPasswordRegister"
                 style="@style/loginCard"
                 android:background="@color/whiteCardColor"
                 android:hint="@string/login_password_hint"
                 android:inputType="textPassword"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="#9C27B0"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
