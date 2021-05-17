@@ -8,10 +8,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.GFFECFL">
+        <activity android:name=".HomeActivity"></activity>
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"
-            android:theme="@style/Theme.GFFECFL.NoActionBar"></activity>
+            android:theme="@style/Theme.GFFECFL.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

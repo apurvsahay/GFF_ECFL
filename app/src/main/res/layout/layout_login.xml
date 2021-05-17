@@ -32,7 +32,9 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:background="@color/whiteCardColor"
-                android:hint="Team Name"/>
+                android:hint="Email"
+                android:textColor="@color/black"
+                android:textColorHint="#9C27B0"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -45,7 +47,9 @@
                 android:background="@color/whiteCardColor"
                 android:hint="@string/login_password_hint"
                 android:maxLines="1"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:textColor="@color/black"
+                android:textColorHint="#9C27B0"/>
         </com.google.android.material.textfield.TextInputLayout>
 
 

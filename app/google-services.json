@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "787138089611",
+    "project_id": "gff-ecfl",
+    "storage_bucket": "gff-ecfl.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:787138089611:android:84c9ad097f454f2803fa8e",
+        "android_client_info": {
+          "package_name": "com.example.gffecfl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "787138089611-b3jdhnme52g7serj1loj8dor7vrbhu4i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAurPZ-GsCRMaEmUg4-fnJRZrry3Gyr_zU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "787138089611-b3jdhnme52g7serj1loj8dor7vrbhu4i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
