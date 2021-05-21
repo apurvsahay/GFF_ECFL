@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     @Override
@@ -39,6 +41,7 @@ public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 return true;
             case R.id.option2:
                 Intent intent1 = new Intent(HomeActivity.this,MainActivity.class);
+                FirebaseAuth.getInstance().signOut();
                 HomeActivity.this.startActivity(intent1);
                 return true;
         }
