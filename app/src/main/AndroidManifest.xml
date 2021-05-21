@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.GFFECFL">
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".AdminActivity"></activity>
+        <activity android:name=".HomeActivity" />
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"
