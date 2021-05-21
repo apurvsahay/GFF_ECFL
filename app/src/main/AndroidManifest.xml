@@ -7,13 +7,13 @@
         android:icon="@mipmap/gff"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GFFECFL">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".AdminActivity"></activity>
         <activity android:name=".HomeActivity" />
         <activity
             android:name=".RegisterActivity"
             android:label="@string/title_activity_register"
-            android:theme="@style/Theme.GFFECFL.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
