@@ -99,7 +99,7 @@
             android:id="@+id/registerButton"
             style="@style/loginButton"
             android:layout_gravity="center"
-            android:layout_marginTop="30px"
+            android:layout_marginTop="30dp"
             android:text="Register" />
 
         <TextView
