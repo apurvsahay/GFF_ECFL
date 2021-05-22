@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
@@ -28,7 +27,7 @@ public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     public void showPopup(View view) {
         PopupMenu popup = new PopupMenu(this,view);
         popup.setOnMenuItemClickListener(this);
-        popup.inflate(R.menu.options);
+        popup.inflate(R.menu.options_main);
         popup.show();
     }
 
