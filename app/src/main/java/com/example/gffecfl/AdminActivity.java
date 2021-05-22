@@ -37,6 +37,8 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()){
             case R.id.optionAddPlayer:
+                Intent intent = new Intent(AdminActivity.this,AddPlayerActivity.class);
+                AdminActivity.this.startActivity(intent);
                 return true;
             case R.id.optionEliminateCountry:
                 return true;
