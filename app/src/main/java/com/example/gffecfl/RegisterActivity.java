@@ -11,13 +11,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.gffecfl.Objects.Teams;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -57,12 +62,16 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String username = email.getText().toString();
                 String pass = password.getText().toString();
+                String team_lead = leader.getText().toString();
+                String team_member = member.getText().toString();
+                String team_name = team.getText().toString();
 
                 firebaseAuth.createUserWithEmailAndPassword(username,pass)
                         .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()){
+                                    addTeamToFirebase(firebaseAuth.getCurrentUser().getUid(),team_name,team_lead,team_member);
                                     Toast.makeText(RegisterActivity.this,
                                             "Registration Successful",Toast.LENGTH_LONG).show();
                                     Intent intent =new Intent(RegisterActivity.this,HomeActivity.class);
@@ -77,6 +86,20 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void addTeamToFirebase(String uid, String team_name, String team_lead, String team_member) {
+        Teams teams = new Teams(team_name,team_lead,team_member);
+
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("Teams");
+
+        Map<String,String> map = new HashMap<>();
+        map.put("Name",team_name);
+        map.put("Leader",team_lead);
+        map.put("Member",team_member);
+
+        databaseReference.child(uid).setValue(map);
     }
 }
 
