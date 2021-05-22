@@ -6,16 +6,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.PopupMenu;
 
+import com.example.gffecfl.Adapter.AdminListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+
+    ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+
+        listView = (ListView)findViewById(R.id.list);
+        listView.setAdapter(new AdminListAdapter(this,new String[]{"Ronaldo","Zlatan"}));
     }
 
     public void showPopup(View view) {
