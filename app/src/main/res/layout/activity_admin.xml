@@ -8,9 +8,6 @@
     android:orientation="vertical">
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:background="#168BC34A"
@@ -40,8 +37,38 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:title=" GFF | ECFL"
+                app:title="Players"
                 app:titleTextColor="#FFFFFF" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/parent"
+                android:layout_marginTop="@dimen/signup_text_margin_top"
+                app:layout_constraintRight_toLeftOf="@+id/imageViewSearch"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="100dp"
+                android:layout_marginBottom="32dp">
+
+                <EditText
+                    android:id="@+id/search"
+                    style="@style/loginCard"
+                    android:hint="Search"
+                    android:inputType="text"
+                    android:background="@color/whiteCardColor"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textColorHint="#9C27B0"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <ImageView
+                android:id="@+id/imageViewSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/imageView"
+                android:layout_marginRight="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
 
             <!-- Right most ImageView -->
             <ImageView
