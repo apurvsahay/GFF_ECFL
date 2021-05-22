@@ -7,28 +7,32 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.gffecfl.Objects.Players;
 import com.example.gffecfl.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminListAdapter extends BaseAdapter {
 
     private static LayoutInflater inflater = null;
     Context context;
-    String[] footballers;
+    List<Players> playersList = new ArrayList<>();
 
-    public AdminListAdapter(Context context, String[] footballers){
+    public AdminListAdapter(Context context, List<Players> players){
         this.context= context;
-        this.footballers = footballers;
+        this.playersList=players;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return footballers.length;
+        return playersList.size();
     }
 
     @Override
-    public Object getItem(int position) {
-        return footballers[position];
+    public Players getItem(int position) {
+        return playersList.get(position);
     }
 
     @Override
@@ -42,7 +46,14 @@ public class AdminListAdapter extends BaseAdapter {
         if(view== null)
             view=inflater.inflate(R.layout.list_row,null);
         TextView footballerName = view.findViewById(R.id.footballerName);
-        footballerName.setText(footballers[position]);
+        TextView footballerCountry = view.findViewById(R.id.footballerCountry);
+        TextView footballerPosition = view.findViewById(R.id.footballerPosition);
+        TextView footballerPrice = view.findViewById(R.id.footballerPrice);
+
+        footballerName.setText(getItem(position).getName());
+        footballerCountry.setText(getItem(position).getCountry());
+        footballerPosition.setText(getItem(position).getPosition());
+        footballerPrice.setText(getItem(position).getBasePrice()+" million");
         return view;
     }
 }
