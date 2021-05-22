@@ -1,5 +1,6 @@
 package com.example.gffecfl;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,11 +11,23 @@ import android.widget.ListView;
 import android.widget.PopupMenu;
 
 import com.example.gffecfl.Adapter.AdminListAdapter;
+import com.example.gffecfl.Objects.Players;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     ListView listView;
+    List<Players> playersList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +35,24 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
         setContentView(R.layout.activity_admin);
 
         listView = (ListView)findViewById(R.id.list);
-        listView.setAdapter(new AdminListAdapter(this,new String[]{"Ronaldo","Zlatan"}));
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference playersReference = reference.child("Players");
+
+        playersReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    playersList.add(dataSnapshot.getValue(Players.class));
+                }
+                listView.setAdapter(new AdminListAdapter(AdminActivity.this,playersList));
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void showPopup(View view) {
