@@ -12,6 +12,7 @@ import com.example.gffecfl.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AdminListAdapter extends BaseAdapter {
 
@@ -45,6 +46,7 @@ public class AdminListAdapter extends BaseAdapter {
         View view = convertView;
         if(view== null)
             view=inflater.inflate(R.layout.list_row,null);
+
         TextView footballerName = view.findViewById(R.id.footballerName);
         TextView footballerCountry = view.findViewById(R.id.footballerCountry);
         TextView footballerPosition = view.findViewById(R.id.footballerPosition);
@@ -57,5 +59,21 @@ public class AdminListAdapter extends BaseAdapter {
         footballerPrice.setText(getItem(position).getBasePrice()+" million");
         footballerPoints.setText(getItem(position).getPoints()+" points");
         return view;
+    }
+
+    public void filter(String string,List<Players> allPlayersList){
+        string = string.toLowerCase(Locale.getDefault());
+        playersList.clear();
+        if(string.length() == 0){
+            playersList.addAll(allPlayersList);
+        }
+        else {
+            for(Players player : allPlayersList){
+                if(player.getName().toLowerCase(Locale.getDefault()).contains(string)){
+                    playersList.add(player);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 }

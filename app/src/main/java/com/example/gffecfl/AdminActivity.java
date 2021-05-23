@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import com.example.gffecfl.Adapter.AdminListAdapter;
 import com.example.gffecfl.Objects.Players;
@@ -35,6 +39,7 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
     EditText searchEditText;
     TextInputLayout search;
     List<Players> playersList = new ArrayList<>();
+    AdminListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +61,8 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     playersList.add(dataSnapshot.getValue(Players.class));
                 }
-                listView.setAdapter(new AdminListAdapter(AdminActivity.this,playersList));
+                adapter = new AdminListAdapter(AdminActivity.this,playersList);
+                listView.setAdapter(adapter);
             }
 
             @Override
@@ -80,6 +86,36 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 else {
                     search.setVisibility(View.VISIBLE);
                 }
+            }
+        });
+
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(TextUtils.isEmpty(s)){
+                    Toast.makeText(AdminActivity.this,"Yahoo",Toast.LENGTH_LONG).show();
+                    List<Players> allPlayersList = new ArrayList<>();
+                    allPlayersList.addAll(playersList);
+                    adapter.filter("",allPlayersList);
+                    listView.clearTextFilter();
+                }
+                else {
+                    Toast.makeText(AdminActivity.this,"Yahoo",Toast.LENGTH_LONG).show();
+                    List<Players> allPlayersList = new ArrayList<>();
+                    allPlayersList.addAll(playersList);
+                    adapter.filter(s.toString(),allPlayersList);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
