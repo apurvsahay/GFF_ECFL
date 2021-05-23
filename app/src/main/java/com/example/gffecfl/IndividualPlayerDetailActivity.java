@@ -1,14 +1,26 @@
 package com.example.gffecfl;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.gffecfl.Objects.Players;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IndividualPlayerDetailActivity extends AppCompatActivity {
 
@@ -17,6 +29,7 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
     EditText sellingPriceET,pointsET;
     AutoCompleteTextView teamTV;
     Button sellButton,updatePointsButton;
+    List<String> teamsList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,5 +46,26 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
         updatePointsButton=(Button) findViewById(R.id.updatePointsButton);
 
         individualPlayerName.setText(player.getName());
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference teamsReference = reference.child("Teams");
+
+        teamsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    teamsList.add(dataSnapshot.child("Name").getValue(String.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, teamsList);
+        teamTV.setThreshold(0);
+        teamTV.setAdapter(arrayAdapter);
     }
 }
