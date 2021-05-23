@@ -152,8 +152,6 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 return true;
             case R.id.optionEliminateCountry:
                 return true;
-            case R.id.optionSellPlayer:
-                return true;
         }
         return false;
     }
