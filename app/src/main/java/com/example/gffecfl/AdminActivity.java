@@ -39,6 +39,7 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
     EditText searchEditText;
     TextInputLayout search;
     List<Players> playersList = new ArrayList<>();
+    List<Players> allPlayersList = new ArrayList<>();
     AdminListAdapter adapter;
 
     @Override
@@ -59,7 +60,9 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    playersList.add(dataSnapshot.getValue(Players.class));
+                    Players players = dataSnapshot.getValue(Players.class);
+                    playersList.add(players);
+                    allPlayersList.add(players);
                 }
                 adapter = new AdminListAdapter(AdminActivity.this,playersList);
                 listView.setAdapter(adapter);
@@ -98,16 +101,10 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(TextUtils.isEmpty(s)){
-                    Toast.makeText(AdminActivity.this,"Yahoo",Toast.LENGTH_LONG).show();
-                    List<Players> allPlayersList = new ArrayList<>();
-                    allPlayersList.addAll(playersList);
                     adapter.filter("",allPlayersList);
                     listView.clearTextFilter();
                 }
                 else {
-                    Toast.makeText(AdminActivity.this,"Yahoo",Toast.LENGTH_LONG).show();
-                    List<Players> allPlayersList = new ArrayList<>();
-                    allPlayersList.addAll(playersList);
                     adapter.filter(s.toString(),allPlayersList);
                 }
 
