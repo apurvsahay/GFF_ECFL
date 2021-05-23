@@ -1,6 +1,8 @@
 package com.example.gffecfl.Objects;
 
-public class Players {
+import java.io.Serializable;
+
+public class Players implements Serializable {
     String name;
     String country;
     String position;
@@ -17,7 +19,14 @@ public class Players {
         this.points = points;
     }
 
-    public Players(){}
+    public Players(){
+        this.name = "";
+        this.country = "";
+        this.position = "";
+        this.basePrice = "";
+        this.sellingPrice = "NA";
+        this.points = "0";
+    }
 
     public String getName() {
         return name;

@@ -5,16 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.gffecfl.Adapter.AdminListAdapter;
@@ -113,6 +116,21 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Players player = new Players();
+                player.setName(((TextView) view.findViewById(R.id.footballerName)).getText().toString());
+                player.setCountry(((TextView) view.findViewById(R.id.footballerCountry)).getText().toString());
+                player.setPosition(((TextView) view.findViewById(R.id.footballerPosition)).getText().toString());
+                player.setBasePrice(((TextView) view.findViewById(R.id.footballerPrice)).getText().toString());
+
+                Intent intent = new Intent(AdminActivity.this,IndividualPlayerDetailActivity.class);
+                intent.putExtra("Player", player);
+                AdminActivity.this.startActivity(intent);
             }
         });
     }
