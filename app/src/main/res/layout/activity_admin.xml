@@ -40,26 +40,6 @@
                 app:title="Players"
                 app:titleTextColor="#FFFFFF" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/parent"
-                android:layout_marginTop="@dimen/signup_text_margin_top"
-                app:layout_constraintRight_toLeftOf="@+id/imageViewSearch"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="100dp"
-                android:layout_marginBottom="32dp">
-
-                <EditText
-                    android:id="@+id/search"
-                    style="@style/loginCard"
-                    android:hint="Search"
-                    android:inputType="text"
-                    android:background="@color/whiteCardColor"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textColorHint="#9C27B0"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
             <ImageView
                 android:id="@+id/imageViewSearch"
                 android:layout_width="wrap_content"
@@ -89,6 +69,28 @@
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/parent"
+        android:background="@color/whiteCardColor"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:visibility="gone"
+        android:id="@+id/search"
+        android:paddingLeft="15dp">
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:id="@+id/searchPlayer"
+            style="@style/loginCard"
+            android:hint="Search Player .."
+            android:inputType="text"
+            android:background="@color/whiteCardColor"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:textColorHint="#9C27B0"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
     <ListView

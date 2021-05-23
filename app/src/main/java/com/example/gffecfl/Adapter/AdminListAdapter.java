@@ -49,11 +49,13 @@ public class AdminListAdapter extends BaseAdapter {
         TextView footballerCountry = view.findViewById(R.id.footballerCountry);
         TextView footballerPosition = view.findViewById(R.id.footballerPosition);
         TextView footballerPrice = view.findViewById(R.id.footballerPrice);
+        TextView footballerPoints =view.findViewById(R.id.footballerPoints);
 
         footballerName.setText(getItem(position).getName());
         footballerCountry.setText(getItem(position).getCountry());
         footballerPosition.setText(" / "+getItem(position).getPosition());
         footballerPrice.setText(getItem(position).getBasePrice()+" million");
+        footballerPoints.setText(getItem(position).getPoints()+" points");
         return view;
     }
 }
