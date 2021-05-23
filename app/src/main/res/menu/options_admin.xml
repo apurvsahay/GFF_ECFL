@@ -4,6 +4,4 @@
         android:title="Add Player" />
     <item android:id="@+id/optionEliminateCountry"
         android:title="Eliminate Country" />
-    <item android:id="@+id/optionSellPlayer"
-        android:title="Sell Player" />
 </menu>
