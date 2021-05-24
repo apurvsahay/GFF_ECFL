@@ -93,6 +93,9 @@ public class AddPlayerActivity extends AppCompatActivity {
                         Intent intent =new Intent(AddPlayerActivity.this,AdminActivity.class);
                         AddPlayerActivity.this.startActivity(intent);
                     }
+                    else {
+                        Toast.makeText(AddPlayerActivity.this,"Please insert values for all the fields.",Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });

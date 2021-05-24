@@ -57,4 +57,13 @@
 
     </ScrollView>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Designed by Apurv"
+        android:background="#408bff"
+        style="@style/headerText"
+        android:layout_gravity="center"
+        android:layout_alignParentBottom="true" />
+
 </RelativeLayout>
