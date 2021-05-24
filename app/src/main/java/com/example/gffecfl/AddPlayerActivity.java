@@ -113,7 +113,7 @@ public class AddPlayerActivity extends AppCompatActivity {
         else if(position.equals("Forward"))
             price="6";
 
-        Players player = new Players(name,country,position,price,"NA","0");
+        Players player = new Players(name,country,position,price,"NA","0","NA");
         databaseReference.child(name).setValue(player).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {

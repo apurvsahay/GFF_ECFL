@@ -32,7 +32,7 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
 
     Players player;
     TextView individualPlayerName;
-    EditText sellingPriceET,pointsET;
+    EditText sellingPriceET,pointsET1,pointsET2,pointsET3;
     AutoCompleteTextView teamTV;
     Button sellButton,updatePointsButton;
     List<String> teamsList = new ArrayList<>();
@@ -42,14 +42,21 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_player_detail);
 
-        player = (Players) getIntent().getSerializableExtra("Player");
-
         individualPlayerName=(TextView) findViewById(R.id.individualPlayerName);
         sellingPriceET=(EditText) findViewById(R.id.individualPlayerSellingPrice);
-        pointsET=(EditText) findViewById(R.id.individualPlayerPoints);
+        pointsET1=(EditText) findViewById(R.id.individualPlayerPoints1);
+        pointsET2=(EditText) findViewById(R.id.individualPlayerPoints2);
+        pointsET3=(EditText) findViewById(R.id.individualPlayerPoints3);
         teamTV=(AutoCompleteTextView) findViewById(R.id.soldToTeamName);
         sellButton=(Button) findViewById(R.id.sellPlayerButton);
         updatePointsButton=(Button) findViewById(R.id.updatePointsButton);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        player = (Players) getIntent().getSerializableExtra("Player");
 
         individualPlayerName.setText(player.getName());
 
@@ -77,13 +84,59 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
         sellButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sellingPrice = sellingPriceET.getText().toString();
-                String team = teamTV.getText().toString();
-                if(sellingPrice!=null && team!=null){
-                    if(sellingPrice!="" && team!=""){
-                        player.setSellingPrice(sellingPrice);
-                        addSoldPlayerToTeamFirebase(team,player);
-                    }
+                String sellingPrice = sellingPriceET.getText().toString().trim();
+                String team = teamTV.getText().toString().trim();
+                if(!sellingPrice.equals("") && !team.equals("")){
+                    player.setSellingPrice(sellingPrice);
+                    player.setSoldTo(team);
+                    addSoldPlayerToTeamFirebase(team,player);
+                }
+                else {
+                    Toast.makeText(IndividualPlayerDetailActivity.this,"Please insert values in all the fields",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        updatePointsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String points1,points2,points3;
+                points1=pointsET1.getText().toString().trim();
+                points2=pointsET2.getText().toString().trim();
+                points3=pointsET3.getText().toString().trim();
+
+                if(!points1.equals("") && !points2.equals("") && !points3.equals("")){
+                    updatePointsFirebase(points1,points2,points3,player);
+                }
+                else {
+                    Toast.makeText(IndividualPlayerDetailActivity.this,"Please insert values into all fields",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+    }
+
+    private void updatePointsFirebase(String points1, String points2, String points3, Players player) {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference("Squads");
+
+        if(player.getSellingPrice().equals("NA")){
+            Toast.makeText(IndividualPlayerDetailActivity.this,"Please sell player first",Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        databaseReference.child(player.getSoldTo()).child(player.getName()).child("points1").setValue(points1);
+        databaseReference.child(player.getSoldTo()).child(player.getName()).child("points2").setValue(points2);
+        databaseReference.child(player.getSoldTo()).child(player.getName()).child("points3").setValue(points3).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull @NotNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(IndividualPlayerDetailActivity.this,"Points updated successfully",Toast.LENGTH_LONG).show();
+                    Intent intent =new Intent(IndividualPlayerDetailActivity.this,AdminActivity.class);
+                    IndividualPlayerDetailActivity.this.startActivity(intent);
+                }
+                else {
+                    Toast.makeText(IndividualPlayerDetailActivity.this,"Error occurred",Toast.LENGTH_LONG).show();
                 }
             }
         });

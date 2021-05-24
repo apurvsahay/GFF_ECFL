@@ -9,14 +9,16 @@ public class Players implements Serializable {
     String basePrice;
     String sellingPrice;
     String points;
+    String soldTo;
 
-    public Players(String name, String country, String position, String basePrice, String sellingPrice, String points) {
+    public Players(String name, String country, String position, String basePrice, String sellingPrice, String points, String soldTo)  {
         this.name = name;
         this.country = country;
         this.position = position;
         this.basePrice = basePrice;
         this.sellingPrice = sellingPrice;
         this.points = points;
+        this.soldTo = soldTo;
     }
 
     public Players(){
@@ -26,6 +28,7 @@ public class Players implements Serializable {
         this.basePrice = "";
         this.sellingPrice = "NA";
         this.points = "0";
+        this.soldTo = "NA";
     }
 
     public String getName() {
@@ -74,5 +77,13 @@ public class Players implements Serializable {
 
     public void setPoints(String points) {
         this.points = points;
+    }
+
+    public String getSoldTo() {
+        return soldTo;
+    }
+
+    public void setSoldTo(String soldTo) {
+        this.soldTo = soldTo;
     }
 }
