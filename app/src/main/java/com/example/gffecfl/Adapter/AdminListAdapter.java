@@ -56,8 +56,8 @@ public class AdminListAdapter extends BaseAdapter {
         footballerName.setText(getItem(position).getName());
         footballerCountry.setText(getItem(position).getCountry());
         footballerPosition.setText(getItem(position).getPosition());
-        footballerPrice.setText(getItem(position).getBasePrice()+" million");
-        footballerPoints.setText(getItem(position).getPoints()+" points");
+        footballerPrice.setText(getItem(position).getBasePrice());
+        footballerPoints.setText(getItem(position).getPoints());
         return view;
     }
 

@@ -98,7 +98,7 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(IndividualPlayerDetailActivity.this,"Player sold successfully",Toast.LENGTH_LONG).show();
-                    Intent intent =new Intent(IndividualPlayerDetailActivity.this,AddPlayerActivity.class);
+                    Intent intent =new Intent(IndividualPlayerDetailActivity.this,AdminActivity.class);
                     IndividualPlayerDetailActivity.this.startActivity(intent);
                 }
                 else {
