@@ -2,6 +2,7 @@ package com.example.gffecfl;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,8 +42,17 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
     ImageView searchButton;
     EditText searchEditText;
     TextInputLayout search;
+    androidx.appcompat.widget.Toolbar toolbar;
     List<Players> playersList = new ArrayList<>();
     List<Players> allPlayersList = new ArrayList<>();
+    List<Players> gkList = new ArrayList<>();
+    List<Players> allgkList = new ArrayList<>();
+    List<Players> defList = new ArrayList<>();
+    List<Players> allDefList = new ArrayList<>();
+    List<Players> midList = new ArrayList<>();
+    List<Players> allMidList = new ArrayList<>();
+    List<Players> forwardsList = new ArrayList<>();
+    List<Players> allForwardsList = new ArrayList<>();
     AdminListAdapter adapter;
 
     @Override
@@ -53,6 +63,8 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
         searchButton = (ImageView) findViewById(R.id.imageViewSearch);
         searchEditText = (EditText) findViewById(R.id.searchPlayer);
         search = (TextInputLayout) findViewById(R.id.search);
+        toolbar = (Toolbar) findViewById(R.id.toolbarAdmin);
+        setSupportActionBar(toolbar);
 
         listView = (ListView)findViewById(R.id.list);
 
@@ -66,6 +78,22 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
                     Players players = dataSnapshot.getValue(Players.class);
                     playersList.add(players);
                     allPlayersList.add(players);
+                    if(players.getPosition().equals("Forward")){
+                        forwardsList.add(players);
+                        allForwardsList.add(players);
+                    }
+                    else if(players.getPosition().equals("Midfielder")) {
+                        midList.add(players);
+                        allMidList.add(players);
+                    }
+                    else if (players.getPosition().equals("Defender")) {
+                        defList.add(players);
+                        allDefList.add(players);
+                    }
+                    else {
+                        gkList.add(players);
+                        allgkList.add(players);
+                    }
                 }
                 adapter = new AdminListAdapter(AdminActivity.this,playersList);
                 listView.setAdapter(adapter);
@@ -104,11 +132,44 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(TextUtils.isEmpty(s)){
-                    adapter.filter("",allPlayersList);
-                    listView.clearTextFilter();
+                    if(getSupportActionBar().getTitle().equals("Players")){
+                        adapter.filter("",allPlayersList);
+                        listView.clearTextFilter();
+                    }
+                    else if(getSupportActionBar().getTitle().equals("Goalkeepers")){
+                        adapter.filter("",allgkList);
+                        listView.clearTextFilter();
+                    }
+                    else if(getSupportActionBar().getTitle().equals("Defenders")){
+                        adapter.filter("",allDefList);
+                        listView.clearTextFilter();
+                    }
+                    else if(getSupportActionBar().getTitle().equals("Midfielders")){
+                        adapter.filter("",allMidList);
+                        listView.clearTextFilter();
+                    }
+                    else if(getSupportActionBar().getTitle().equals("Forwards")){
+                        adapter.filter("",allForwardsList);
+                        listView.clearTextFilter();
+                    }
                 }
                 else {
                     adapter.filter(s.toString(),allPlayersList);
+                    if(getSupportActionBar().getTitle().equals("Players")){
+                        adapter.filter(s.toString(),allPlayersList);
+                    }
+                    else if(getSupportActionBar().getTitle().equals("Goalkeepers")){
+                        adapter.filter(s.toString(),allgkList);
+                    }
+                    else if(getSupportActionBar().getTitle().equals("Defenders")){
+                        adapter.filter(s.toString(),allDefList);
+                    }
+                    else if(getSupportActionBar().getTitle().equals("Midfielders")){
+                        adapter.filter(s.toString(),allMidList);
+                    }
+                    else if(getSupportActionBar().getTitle().equals("Forwards")){
+                        adapter.filter(s.toString(),allForwardsList);
+                    }
                 }
 
             }
@@ -146,6 +207,31 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.optionAllPlayers:
+                adapter=new AdminListAdapter(AdminActivity.this,playersList);
+                listView.setAdapter(adapter);
+                getSupportActionBar().setTitle("Players");
+                return true;
+            case R.id.optionGoalkeepers:
+                adapter=new AdminListAdapter(AdminActivity.this,gkList);
+                listView.setAdapter(adapter);
+                getSupportActionBar().setTitle("Goalkeepers");
+                return true;
+            case R.id.optionDefenders:
+                adapter=new AdminListAdapter(AdminActivity.this,defList);
+                listView.setAdapter(adapter);
+                getSupportActionBar().setTitle("Defenders");
+                return true;
+            case R.id.optionMidfielders:
+                adapter=new AdminListAdapter(AdminActivity.this,midList);
+                listView.setAdapter(adapter);
+                getSupportActionBar().setTitle("Midfielders");
+                return true;
+            case R.id.optionForwards:
+                adapter=new AdminListAdapter(AdminActivity.this,forwardsList);
+                listView.setAdapter(adapter);
+                getSupportActionBar().setTitle("Forwards");
+                return true;
             case R.id.optionAddPlayer:
                 Intent intent = new Intent(AdminActivity.this,AddPlayerActivity.class);
                 AdminActivity.this.startActivity(intent);

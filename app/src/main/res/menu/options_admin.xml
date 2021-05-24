@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/optionAllPlayers"
+        android:title="All Players" />
+    <item android:id="@+id/optionGoalkeepers"
+        android:title="Goalkeepers" />
+    <item android:id="@+id/optionDefenders"
+        android:title="Defenders" />
+    <item android:id="@+id/optionMidfielders"
+        android:title="Midfielders" />
+    <item android:id="@+id/optionForwards"
+        android:title="Forwards" />
     <item android:id="@+id/optionAddPlayer"
         android:title="Add Player" />
     <item android:id="@+id/optionEliminateCountry"
