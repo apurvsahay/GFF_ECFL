@@ -188,6 +188,7 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 player.setCountry(((TextView) view.findViewById(R.id.footballerCountry)).getText().toString());
                 player.setPosition(((TextView) view.findViewById(R.id.footballerPosition)).getText().toString());
                 player.setBasePrice(((TextView) view.findViewById(R.id.footballerPrice)).getText().toString());
+                player.setPoints(((TextView)view.findViewById(R.id.footballerPoints)).getText().toString());
 
                 Intent intent = new Intent(AdminActivity.this,IndividualPlayerDetailActivity.class);
                 intent.putExtra("Player", player);
