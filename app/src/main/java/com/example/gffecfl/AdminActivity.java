@@ -184,11 +184,20 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Players player = new Players();
-                player.setName(((TextView) view.findViewById(R.id.footballerName)).getText().toString());
+                String playerName= ((TextView) view.findViewById(R.id.footballerName)).getText().toString();
+                player.setName(playerName);
                 player.setCountry(((TextView) view.findViewById(R.id.footballerCountry)).getText().toString());
                 player.setPosition(((TextView) view.findViewById(R.id.footballerPosition)).getText().toString());
                 player.setBasePrice(((TextView) view.findViewById(R.id.footballerPrice)).getText().toString());
                 player.setPoints(((TextView)view.findViewById(R.id.footballerPoints)).getText().toString());
+
+                for(Players myPlayer : allPlayersList){
+                    if(myPlayer.getName().equals(playerName)){
+                        player.setSoldTo(myPlayer.getSoldTo());
+                        player.setSellingPrice(myPlayer.getSellingPrice());
+                        break;
+                    }
+                }
 
                 Intent intent = new Intent(AdminActivity.this,IndividualPlayerDetailActivity.class);
                 intent.putExtra("Player", player);

@@ -63,10 +63,40 @@
             android:layout_marginTop="@dimen/signup_text_margin_top">
 
             <EditText
-                android:id="@+id/individualPlayerPoints"
+                android:id="@+id/individualPlayerPoints1"
                 style="@style/loginCard"
                 android:background="@color/whiteCardColor"
-                android:hint="Points"
+                android:hint="Points (Matchweek 1)"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="#9C27B0"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent"
+            android:layout_marginTop="@dimen/signup_text_margin_top">
+
+            <EditText
+                android:id="@+id/individualPlayerPoints2"
+                style="@style/loginCard"
+                android:background="@color/whiteCardColor"
+                android:hint="Points (Matchweek 2)"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textColorHint="#9C27B0"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent"
+            android:layout_marginTop="@dimen/signup_text_margin_top">
+
+            <EditText
+                android:id="@+id/individualPlayerPoints3"
+                style="@style/loginCard"
+                android:background="@color/whiteCardColor"
+                android:hint="Points (Matchweek 3)"
                 android:inputType="text"
                 android:maxLines="1"
                 android:textColor="@color/black"
