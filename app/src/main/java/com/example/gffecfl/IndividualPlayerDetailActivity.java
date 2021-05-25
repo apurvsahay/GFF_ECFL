@@ -86,13 +86,17 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String sellingPrice = sellingPriceET.getText().toString().trim();
                 String team = teamTV.getText().toString().trim();
-                if(!sellingPrice.equals("") && !team.equals("")){
-                    player.setSellingPrice(sellingPrice);
-                    player.setSoldTo(team);
-                    addSoldPlayerToTeamFirebase(team,player);
+                if(!player.getSoldTo().equals("NA")) {
+                    if (!sellingPrice.equals("") && !team.equals("")) {
+                        player.setSellingPrice(sellingPrice);
+                        player.setSoldTo(team);
+                        addSoldPlayerToTeamFirebase(team, player);
+                    } else {
+                        Toast.makeText(IndividualPlayerDetailActivity.this, "Please insert values in all the fields", Toast.LENGTH_LONG).show();
+                    }
                 }
                 else {
-                    Toast.makeText(IndividualPlayerDetailActivity.this,"Please insert values in all the fields",Toast.LENGTH_LONG).show();
+                    Toast.makeText(IndividualPlayerDetailActivity.this, "Player already sold", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -119,11 +123,20 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
     private void updatePointsFirebase(String points1, String points2, String points3, Players player) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("Squads");
+        DatabaseReference databaseReference1 = firebaseDatabase.getReference("Players");
 
         if(player.getSellingPrice().equals("NA")){
             Toast.makeText(IndividualPlayerDetailActivity.this,"Please sell player first",Toast.LENGTH_LONG).show();
             return;
         }
+
+        int p1,p2,p3,totalPoints;
+        p1 = Integer.parseInt(points1);
+        p2 = Integer.parseInt(points2);
+        p3 = Integer.parseInt(points3);
+        totalPoints = p1+p2+p3;
+        String playerPoints = Integer.toString(totalPoints);
+        databaseReference1.child(player.getName()).child("points").setValue(playerPoints);
 
         databaseReference.child(player.getSoldTo()).child(player.getName()).child("points1").setValue(points1);
         databaseReference.child(player.getSoldTo()).child(player.getName()).child("points2").setValue(points2);
