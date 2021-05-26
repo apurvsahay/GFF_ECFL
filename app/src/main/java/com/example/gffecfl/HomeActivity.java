@@ -3,7 +3,10 @@ package com.example.gffecfl;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -11,9 +14,11 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
+import com.example.gffecfl.Adapter.FragmentHomeAdapter;
 import com.example.gffecfl.Adapter.TeamListAdapter;
 import com.example.gffecfl.Objects.Players;
 import com.example.gffecfl.Objects.SquadPlayers;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,12 +43,49 @@ public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     Map<String,Players> playersMap = new HashMap<>();
     TeamListAdapter adapter;
 
+    TabLayout tabLayout ;
+    ViewPager2 viewPager2;
+    FragmentHomeAdapter fragmentHomeAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
         listView = (ListView) findViewById(R.id.listHome);
+        tabLayout = (TabLayout) findViewById(R.id.tabLayoutHome);
+        viewPager2 = (ViewPager2) findViewById(R.id.viewPagerHome);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentHomeAdapter = new FragmentHomeAdapter(fragmentManager , getLifecycle());
+        viewPager2.setAdapter(fragmentHomeAdapter);
+
+        tabLayout.addTab(tabLayout.newTab().setText("Squad"));
+        tabLayout.addTab(tabLayout.newTab().setText("Starting XI"));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager2.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                tabLayout.selectTab(tabLayout.getTabAt(position));
+            }
+        });
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         toolbar = (Toolbar) findViewById(R.id.toolbar);

@@ -53,6 +53,17 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tabLayoutHome"/>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:id="@+id/viewPagerHome"/>
+
     <ListView
         android:id="@+id/listHome"
         android:layout_width="fill_parent"
