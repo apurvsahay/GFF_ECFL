@@ -88,7 +88,7 @@ public class AddPlayerActivity extends AppCompatActivity {
                 String position = playerPosition.getText().toString();
 
                 if(name!=null && country!=null && position!=null){
-                    if(name!="" && country!="" && position!=""){
+                    if(!name.equals("") && !country.equals("") && !position.equals("")){
                         addPlayerToFirebase(name,country,position);
                         Intent intent =new Intent(AddPlayerActivity.this,AdminActivity.class);
                         AddPlayerActivity.this.startActivity(intent);

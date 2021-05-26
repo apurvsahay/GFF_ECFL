@@ -23,6 +23,8 @@ public class SquadPlayers {
         this.points3 = "0";
     }
 
+    public SquadPlayers(){}
+
     public String getName() {
         return name;
     }
