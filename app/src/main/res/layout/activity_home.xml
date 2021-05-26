@@ -64,17 +64,6 @@
         android:layout_weight="1"
         android:id="@+id/viewPagerHome"/>
 
-    <ListView
-        android:id="@+id/listHome"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:divider="#FFFFFF"
-        android:dividerHeight="5dp"
-        android:listSelector="@drawable/list_selector"
-        android:layout_marginTop="5dp"
-        />
-
     <TextView
         android:id="@+id/footer"
         android:layout_width="match_parent"

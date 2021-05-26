@@ -37,11 +37,7 @@ import java.util.Map;
 public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     Toolbar toolbar;
-    ListView listView;
     String teamName;
-    List<Players> squadList= new ArrayList<>();
-    Map<String,Players> playersMap = new HashMap<>();
-    TeamListAdapter adapter;
 
     TabLayout tabLayout ;
     ViewPager2 viewPager2;
@@ -52,7 +48,6 @@ public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        listView = (ListView) findViewById(R.id.listHome);
         tabLayout = (TabLayout) findViewById(R.id.tabLayoutHome);
         viewPager2 = (ViewPager2) findViewById(R.id.viewPagerHome);
 
@@ -99,7 +94,6 @@ public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 teamName = snapshot.getValue(String.class);
                 getSupportActionBar().setTitle(teamName);
-                getAllPlayers();
             }
 
             @Override
@@ -110,53 +104,7 @@ public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     }
 
-    private void getAllPlayers() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
-        DatabaseReference playersReference = reference.child("Players");
-        playersReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Players player = dataSnapshot.getValue(Players.class);
-                    playersMap.put(player.getName(),player);
-                }
-                populateListView();
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
-
-    }
-
-    //This method is called only after teamName variable has been set
-    private void populateListView() {
-        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference squadReference = reference1.child("Squads").child(teamName);
-
-        squadReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                squadList.clear();
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    SquadPlayers squadPlayer = dataSnapshot.getValue(SquadPlayers.class);
-                    String squadPlayername = squadPlayer.getName();
-                    squadList.add(playersMap.get(squadPlayername));
-
-                    adapter = new TeamListAdapter(HomeActivity.this , squadList);
-                    listView.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
-    }
 
     @Override
     protected void onStart() {
