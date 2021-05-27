@@ -3,7 +3,9 @@ package com.example.gffecfl;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -19,13 +21,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.utilities.Tree;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
 public class RakingsActivity extends AppCompatActivity {
 
@@ -33,6 +41,7 @@ public class RakingsActivity extends AppCompatActivity {
     Map<String, Players> playersMap = new HashMap<>();
     Map<String,Integer> pointsMap = new HashMap<>();
     List<Rankings> rankingsList = new ArrayList<>();
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,25 +49,17 @@ public class RakingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rakings);
 
         listView = findViewById(R.id.listRanks);
+        back = findViewById(R.id.backRankings);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference playersReference = reference.child("Players");
-
-        playersReference.addValueEventListener(new ValueEventListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Players player = dataSnapshot.getValue(Players.class);
-                    playersMap.put(player.getName(),player);
-                }
-                calculateTeamPoints();
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
+            public void onClick(View v) {
+                Intent intent = new Intent(RakingsActivity.this,HomeActivity.class);
+                RakingsActivity.this.startActivity(intent);
             }
         });
+
+        calculateTeamPoints();
 
     }
 
@@ -106,6 +107,7 @@ public class RakingsActivity extends AppCompatActivity {
                     rankingsList.add(ranking);
                 }
 
+                rankingsList = getSortedRankingsList(rankingsList);
                 RankingsAdapter adapter = new RankingsAdapter(RakingsActivity.this,rankingsList);
                 listView.setAdapter(adapter);
             }
@@ -115,5 +117,25 @@ public class RakingsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private List<Rankings> getSortedRankingsList(List<Rankings> rankingsList) {
+        List<Rankings> list = new ArrayList<>();
+        Set<Integer> pointsSet = new HashSet<>();
+        for(Rankings rankings :rankingsList){
+            pointsSet.add(rankings.getPoints());
+        }
+        List<Integer> pointsList = new ArrayList<>(pointsSet);
+        Collections.sort(pointsList,Collections.reverseOrder());
+
+        for(int point : pointsList){
+            for(Rankings ranking :rankingsList){
+                if(ranking.getPoints() == point){
+                    list.add(ranking);
+                }
+            }
+        }
+
+        return list;
     }
 }
