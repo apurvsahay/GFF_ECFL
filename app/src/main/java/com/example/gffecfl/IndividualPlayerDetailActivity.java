@@ -86,7 +86,7 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String sellingPrice = sellingPriceET.getText().toString().trim();
                 String team = teamTV.getText().toString().trim();
-                if(!player.getSoldTo().equals("NA")) {
+                if(player.getSoldTo().equals("NA")) {
                     if (!sellingPrice.equals("") && !team.equals("")) {
                         player.setSellingPrice(sellingPrice);
                         player.setSoldTo(team);
