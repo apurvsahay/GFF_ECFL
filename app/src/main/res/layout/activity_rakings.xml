@@ -56,7 +56,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <ListView
-        android:id="@+id/list"
+        android:id="@+id/listRanks"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:divider="#FFFFFF"

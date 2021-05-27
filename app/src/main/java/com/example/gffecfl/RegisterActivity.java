@@ -89,7 +89,6 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void addTeamToFirebase(String uid, String team_name, String team_lead, String team_member) {
-        Teams teams = new Teams(team_name,team_lead,team_member);
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("Teams");
