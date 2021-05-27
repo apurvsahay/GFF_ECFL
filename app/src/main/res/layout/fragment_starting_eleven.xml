@@ -1,8 +1,133 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="Fragments.StartingElevenFragment">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/list_selector"
+        android:backgroundTint="#F3BAFD"
+        android:orientation="horizontal"
+        android:padding="5dip"
+        android:id="@+id/stats">
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Players Purchased : "
+            android:layout_marginLeft="5dip"
+            android:textColor="#040404"
+            android:typeface="sans"
+            android:textSize="15dip"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/numberOfPlayers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="#040404"
+            android:layout_toRightOf="@+id/tv"
+            android:typeface="sans"
+            android:textSize="15dip"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv"
+            android:layout_marginLeft="5dip"
+            android:textColor="#343434"
+            android:textSize="10dip"
+            android:layout_marginTop="1dip"
+            android:text="Budget Spent : " />
+
+        <TextView
+            android:id="@+id/budgetSpent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv"
+            android:layout_toRightOf="@+id/tv1"
+            android:textColor="#343434"
+            android:textSize="10dip"
+            android:layout_marginTop="1dip"
+            android:text="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv"
+            android:layout_toRightOf="@+id/budgetSpent"
+            android:textColor="#343434"
+            android:textSize="10dip"
+            android:layout_marginTop="1dip"
+            android:text=" million" />
+
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv1"
+            android:layout_marginLeft="5dip"
+            android:textColor="#343434"
+            android:textSize="10dip"
+            android:layout_marginTop="1dip"
+            android:text="Budget Left : " />
+
+        <TextView
+            android:id="@+id/budgetLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv1"
+            android:layout_toRightOf="@+id/tv2"
+            android:textColor="#343434"
+            android:textSize="10dip"
+            android:layout_marginTop="1dip"
+            android:text="300" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv1"
+            android:layout_toRightOf="@+id/budgetLeft"
+            android:textColor="#343434"
+            android:textSize="10dip"
+            android:layout_marginTop="1dip"
+            android:text=" million" />
+
+        <TextView
+            android:id="@+id/tv3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@id/tv"
+            android:gravity="right"
+            android:text="Points"
+            android:layout_marginRight="5dip"
+            android:textSize="10dip"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/statPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv3"
+            android:layout_alignParentRight="true"
+            android:gravity="right"
+            android:layout_marginRight="5dip"
+            android:text="0"
+            android:textSize="30dip"
+            android:textColor="#071042"
+            android:textStyle="bold"/>
+
+
+
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/listStartingHome"
@@ -13,6 +138,7 @@
         android:dividerHeight="5dp"
         android:listSelector="@drawable/list_selector"
         android:layout_marginTop="5dp"
+        android:layout_below="@+id/stats"
         />
 
-</FrameLayout>
+</RelativeLayout>

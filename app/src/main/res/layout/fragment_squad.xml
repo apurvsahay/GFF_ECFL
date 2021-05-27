@@ -4,11 +4,11 @@
     android:layout_height="match_parent"
     tools:context="Fragments.SquadFragment">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/list_selector"
-        android:backgroundTint="#F2A8FF"
+        android:backgroundTint="#F3BAFD"
         android:orientation="horizontal"
         android:padding="5dip"
         android:id="@+id/stats">

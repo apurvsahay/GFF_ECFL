@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.gffecfl.Adapter.TeamListAdapter;
 import com.example.gffecfl.Objects.Players;
@@ -42,6 +43,7 @@ public class StartingElevenFragment extends Fragment {
     List<Players> squadList= new ArrayList<>();
     Map<String,Players> playersMap = new HashMap<>();
     TeamListAdapter adapter;
+    TextView numberPlayers , budgetSpent , budgetLeft , points;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -95,6 +97,10 @@ public class StartingElevenFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         listView = (ListView) getView().findViewById(R.id.listStartingHome);
+        numberPlayers = (TextView) getView().findViewById(R.id.numberOfPlayers);
+        budgetSpent = (TextView) getView().findViewById(R.id.budgetSpent);
+        budgetLeft = (TextView) getView().findViewById(R.id.budgetLeft);
+        points = (TextView) getView().findViewById(R.id.statPoints);
 
         String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
@@ -148,13 +154,27 @@ public class StartingElevenFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 squadList.clear();
+                Double spent = 0.0;
+                int totalPoints = 0;
+                int count = 0;
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     SquadPlayers squadPlayer = dataSnapshot.getValue(SquadPlayers.class);
                     String squadPlayername = squadPlayer.getName();
+                    Players player = playersMap.get(squadPlayername);
                     if(squadPlayer.getInStartingEleven().equals("Yes")) {
-                        squadList.add(playersMap.get(squadPlayername));
+                        squadList.add(player);
                     }
+
+                    spent += Double.parseDouble(player.getSellingPrice());
+                    totalPoints += Integer.parseInt(player.getPoints());
+                    count++;
                 }
+                Double left = (300.0 - spent);
+                budgetSpent.setText(Double.toString(spent));
+                budgetLeft.setText(Double.toString(left));
+                points.setText(Integer.toString(totalPoints));
+                numberPlayers.setText(Integer.toString(count));
+
                 adapter = new TeamListAdapter(getContext() , squadList);
                 listView.setAdapter(adapter);
             }
