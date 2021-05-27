@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".IndividualPlayerDetailActivity"></activity>
+        <activity android:name=".RakingsActivity"></activity>
+        <activity android:name=".IndividualPlayerDetailActivity" />
         <activity android:name=".AddPlayerActivity" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".HomeActivity" />

@@ -121,6 +121,10 @@ public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.optionRank:
+                Intent intentRank = new Intent(HomeActivity.this,RakingsActivity.class);
+                HomeActivity.this.startActivity(intentRank);
+                return true;
             case R.id.option1:
                 Intent intent = new Intent(HomeActivity.this,AdminActivity.class);
                 HomeActivity.this.startActivity(intent);
