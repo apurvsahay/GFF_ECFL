@@ -154,10 +154,9 @@ public class StartingElevenFragment extends Fragment {
                     if(squadPlayer.getInStartingEleven().equals("Yes")) {
                         squadList.add(playersMap.get(squadPlayername));
                     }
-
-                    adapter = new TeamListAdapter(getContext() , squadList);
-                    listView.setAdapter(adapter);
                 }
+                adapter = new TeamListAdapter(getContext() , squadList);
+                listView.setAdapter(adapter);
             }
 
             @Override
