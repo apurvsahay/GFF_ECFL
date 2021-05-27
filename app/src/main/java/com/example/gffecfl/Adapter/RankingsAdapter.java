@@ -54,6 +54,7 @@ public class RankingsAdapter extends BaseAdapter {
         leaderNameTv = view.findViewById(R.id.leaderNameRank);
         memberNameTv = view.findViewById(R.id.memberNameRank);
         pointsTv = view.findViewById(R.id.statPoints);
+        positionImage = view.findViewById(R.id.rankingsImage);
 
         teamNameTv.setText(getItem(position).getTeamName());
         leaderNameTv.setText(getItem(position).getLeader());
@@ -62,7 +63,47 @@ public class RankingsAdapter extends BaseAdapter {
 
         switch (position){
             case 0 :
-
+                positionImage.setImageResource(R.drawable.one);
+                break;
+            case 1 :
+                positionImage.setImageResource(R.drawable.two);
+                break;
+            case 2 :
+                positionImage.setImageResource(R.drawable.three);
+                break;
+            case 3 :
+                positionImage.setImageResource(R.drawable.four);
+                break;
+            case 4 :
+                positionImage.setImageResource(R.drawable.five);
+                break;
+            case 5 :
+                positionImage.setImageResource(R.drawable.six);
+                break;
+            case 6 :
+                positionImage.setImageResource(R.drawable.seven);
+                break;
+            case 7 :
+                positionImage.setImageResource(R.drawable.eight);
+                break;
+            case 8 :
+                positionImage.setImageResource(R.drawable.nine);
+                break;
+            case 9 :
+                positionImage.setImageResource(R.drawable.ten);
+                break;
+            case 10 :
+                positionImage.setImageResource(R.drawable.eleven);
+                break;
+            case 11 :
+                positionImage.setImageResource(R.drawable.twelve);
+                break;
+            case 12 :
+                positionImage.setImageResource(R.drawable.thirteen);
+                break;
+            case 13 :
+                positionImage.setImageResource(R.drawable.forteen);
+                break;
         }
 
         return  view;
