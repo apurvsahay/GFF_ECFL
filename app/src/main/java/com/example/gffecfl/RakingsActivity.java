@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -61,6 +62,21 @@ public class RakingsActivity extends AppCompatActivity {
 
         calculateTeamPoints();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String teamName = ((TextView)view.findViewById(R.id.teamNameRank)).getText().toString();
+
+                Intent intent = new Intent(RakingsActivity.this,TeamDetailsActivity.class);
+                intent.putExtra("teamName",teamName);
+                RakingsActivity.this.startActivity(intent);
+            }
+        });
     }
 
     private void calculateTeamPoints() {

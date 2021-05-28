@@ -40,7 +40,7 @@ import java.util.Objects;
 public class SquadFragment extends Fragment {
 
     ListView listView;
-    String teamName;
+    String teamName=null;
     List<Players> squadList= new ArrayList<>();
     Map<String,Players> playersMap = new HashMap<>();
     TeamListAdapter adapter;
@@ -91,6 +91,9 @@ public class SquadFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        if(getArguments()!=null){
+            teamName=getArguments().getString("teamName");
+        }
         return inflater.inflate(R.layout.fragment_squad, container, false);
     }
 
@@ -104,23 +107,28 @@ public class SquadFragment extends Fragment {
         budgetLeft = (TextView) getView().findViewById(R.id.budgetLeft);
         points = (TextView) getView().findViewById(R.id.statPoints);
 
-        String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        if(teamName != null){
+            getAllPlayers();
+        }
+        else {
+            String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
-        DatabaseReference referenceTeam = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference teamReference = referenceTeam.child("Teams").child(uid).child("Name");
+            DatabaseReference referenceTeam = FirebaseDatabase.getInstance().getReference();
+            DatabaseReference teamReference = referenceTeam.child("Teams").child(uid).child("Name");
 
-        teamReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                teamName = snapshot.getValue(String.class);
-                getAllPlayers();
-            }
+            teamReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    teamName = snapshot.getValue(String.class);
+                    getAllPlayers();
+                }
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     private void getAllPlayers() {
