@@ -64,6 +64,8 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
 
         player = (Players) getIntent().getSerializableExtra("Player");
 
+        populateView();
+
         individualPlayerName.setText(player.getName());
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
@@ -135,6 +137,35 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
                 updateStatusFirebase(status);
             }
         });
+    }
+
+    private void populateView() {
+        sellingPriceET.setText(player.getSellingPrice());
+        teamTV.setText(player.getSoldTo());
+        if(player.getSoldTo().equals("NA")){
+            pointsET1.setText("0");
+            pointsET2.setText("0");
+            pointsET3.setText("0");
+        }
+        else {
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference squadReference = firebaseDatabase.getReference("Squads").child(player.getSoldTo()).child(player.getName());
+            squadReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    pointsET1.setText(snapshot.child("points1").getValue(String.class));
+                    pointsET2.setText(snapshot.child("points2").getValue(String.class));
+                    pointsET3.setText(snapshot.child("points3").getValue(String.class));
+                    String status = snapshot.child("inStartingEleven").getValue(String.class);
+                    radioGroup.check(R.id.radioYes);
+                }
+
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                }
+            });
+        }
     }
 
     private void updateStatusFirebase(String status) {
