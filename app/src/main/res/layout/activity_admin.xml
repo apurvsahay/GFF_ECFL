@@ -38,6 +38,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:title="Players"
+                app:titleMarginStart="50dp"
                 app:titleTextColor="#FFFFFF" />
 
             <ImageView
@@ -61,6 +62,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_baseline_more_vert_24"
                 android:onClick="showPopup"/>
+
+            <ImageView
+                android:id="@+id/backAdmin"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@+id/toolbarAdmin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/abc_vector_test"
+                android:visibility="visible"
+                android:contentDescription="back"
+                android:layout_marginLeft="8dip"
+                android:layout_marginTop="5dip" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -96,11 +110,25 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
         android:divider="#FFFFFF"
         android:dividerHeight="5dp"
         android:listSelector="@drawable/list_selector"
         android:layout_marginTop="5dp"
         />
+
+    <TextView
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Designed by Apurv"
+        android:background="#408bff"
+        android:textColor="@color/black"
+        style="@style/headerText"
+        android:textSize="10dp"
+        android:layout_gravity="center"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </LinearLayout>

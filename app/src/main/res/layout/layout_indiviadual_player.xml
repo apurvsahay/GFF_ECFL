@@ -110,6 +110,51 @@
             android:layout_marginTop="30dp"
             android:text="Update Points" />
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/signup_text_margin_top"
+            android:layout_gravity="center"
+            android:gravity="center"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="In Starting XI ?"
+                android:id="@+id/tv4"
+                android:layout_marginTop="6dip"/>
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioGroup"
+                android:layout_toRightOf="@+id/tv4"
+                android:orientation="horizontal"
+                android:layout_marginLeft="5dip">
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"
+                    android:id="@+id/radioYes"/>
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No"
+                    android:id="@+id/radioNo"
+                    android:checked="true"/>
+
+            </RadioGroup>
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/updateStatusButton"
+            style="@style/loginButton"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Update Status" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

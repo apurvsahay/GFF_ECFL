@@ -38,7 +38,6 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
                 android:orientation="vertical"
-                android:layout_marginTop="40dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginLeft="30dp">
 
@@ -47,7 +46,7 @@
                     style="@style/headerText"
                     android:layout_gravity="center"
                     android:text="GFF ECFL"
-                    android:layout_marginTop="40dp"/>
+                    android:layout_marginTop="10dp"/>
                 <include
                     layout="@layout/layout_indiviadual_player"/>
 

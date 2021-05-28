@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +36,10 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
     TextView individualPlayerName;
     EditText sellingPriceET,pointsET1,pointsET2,pointsET3;
     AutoCompleteTextView teamTV;
-    Button sellButton,updatePointsButton;
+    Button sellButton,updatePointsButton,updateStatusButton;
     List<String> teamsList = new ArrayList<>();
+    RadioGroup radioGroup;
+    RadioButton radioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,8 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
         teamTV=(AutoCompleteTextView) findViewById(R.id.soldToTeamName);
         sellButton=(Button) findViewById(R.id.sellPlayerButton);
         updatePointsButton=(Button) findViewById(R.id.updatePointsButton);
+        radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        updateStatusButton = (Button) findViewById(R.id.updateStatusButton);
     }
 
     @Override
@@ -57,6 +63,8 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
         super.onStart();
 
         player = (Players) getIntent().getSerializableExtra("Player");
+
+        populateView();
 
         individualPlayerName.setText(player.getName());
 
@@ -118,6 +126,61 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
 
             }
         });
+
+        updateStatusButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                radioButton = (RadioButton)findViewById(selectedId);
+                String status = radioButton.getText().toString();
+
+                updateStatusFirebase(status);
+            }
+        });
+    }
+
+    private void populateView() {
+        sellingPriceET.setText(player.getSellingPrice());
+        teamTV.setText(player.getSoldTo());
+        if(player.getSoldTo().equals("NA")){
+            pointsET1.setText("0");
+            pointsET2.setText("0");
+            pointsET3.setText("0");
+        }
+        else {
+            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+            DatabaseReference squadReference = firebaseDatabase.getReference("Squads").child(player.getSoldTo()).child(player.getName());
+            squadReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    pointsET1.setText(snapshot.child("points1").getValue(String.class));
+                    pointsET2.setText(snapshot.child("points2").getValue(String.class));
+                    pointsET3.setText(snapshot.child("points3").getValue(String.class));
+                    String status = snapshot.child("inStartingEleven").getValue(String.class);
+                    radioGroup.check(R.id.radioYes);
+                }
+
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                }
+            });
+        }
+    }
+
+    private void updateStatusFirebase(String status) {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference squadReference = firebaseDatabase.getReference("Squads");
+
+        if(!player.getSoldTo().equals("NA")){
+            squadReference.child(player.getSoldTo()).child(player.getName()).child("inStartingEleven").setValue(status);
+            Toast.makeText(IndividualPlayerDetailActivity.this,"Status Updated",Toast.LENGTH_LONG).show();
+            Intent intent =new Intent(IndividualPlayerDetailActivity.this,AdminActivity.class);
+            IndividualPlayerDetailActivity.this.startActivity(intent);
+        }
+        else {
+            Toast.makeText(IndividualPlayerDetailActivity.this,"Please sell player first",Toast.LENGTH_LONG).show();
+        }
     }
 
     private void updatePointsFirebase(String points1, String points2, String points3, Players player) {

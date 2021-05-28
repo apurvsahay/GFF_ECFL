@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RakingsActivity">
+
+    <!-- AppBar layout for using Toolbar as AppBar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- ToolBar widget -->
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarRankings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#408bff"
+                android:minHeight="?attr/actionBarSize"
+                android:theme="?attr/actionBarTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:title=" Rankings"
+                app:titleTextColor="#FFFFFF"
+                app:titleMarginStart="150dp" />
+
+            <!-- Right most ImageView -->
+            <ImageView
+                android:id="@+id/backRankings"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@+id/toolbarRankings"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/abc_vector_test"
+                android:visibility="visible"
+                android:contentDescription="back"
+                android:layout_marginLeft="5dip"
+                android:layout_marginTop="5dip"/>
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ListView
+        android:id="@+id/listRanks"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
+        android:divider="#FFFFFF"
+        android:dividerHeight="5dp"
+        android:layout_below="@id/appBarLayout"
+        android:listSelector="@drawable/list_selector"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Designed by Apurv"
+        android:background="#408bff"
+        android:textColor="@color/black"
+        style="@style/headerText"
+        android:textSize="10dp"
+        android:layout_gravity="center"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</LinearLayout>

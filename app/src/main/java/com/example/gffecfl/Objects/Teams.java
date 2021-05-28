@@ -1,39 +1,39 @@
 package com.example.gffecfl.Objects;
 
 public class Teams {
-    String team_name;
-    String team_leader;
-    String team_member;
+    String Leader;
+    String Member;
+    String Name;
 
     public Teams(){}
 
-    public Teams(String team_name, String team_leader, String team_member) {
-        this.team_name = team_name;
-        this.team_leader = team_leader;
-        this.team_member = team_member;
+    public Teams(String leader, String member, String name) {
+        Leader = leader;
+        Member = member;
+        Name = name;
     }
 
-    public String getTeam_name() {
-        return team_name;
+    public String getLeader() {
+        return Leader;
     }
 
-    public void setTeam_name(String team_name) {
-        this.team_name = team_name;
+    public void setLeader(String leader) {
+        Leader = leader;
     }
 
-    public String getTeam_leader() {
-        return team_leader;
+    public String getMember() {
+        return Member;
     }
 
-    public void setTeam_leader(String team_leader) {
-        this.team_leader = team_leader;
+    public void setMember(String member) {
+        Member = member;
     }
 
-    public String getTeam_member() {
-        return team_member;
+    public String getName() {
+        return Name;
     }
 
-    public void setTeam_member(String team_member) {
-        this.team_member = team_member;
+    public void setName(String name) {
+        Name = name;
     }
 }

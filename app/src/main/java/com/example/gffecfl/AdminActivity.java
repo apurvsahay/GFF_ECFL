@@ -39,7 +39,7 @@ import java.util.List;
 public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     ListView listView;
-    ImageView searchButton;
+    ImageView searchButton,back;
     EditText searchEditText;
     TextInputLayout search;
     androidx.appcompat.widget.Toolbar toolbar;
@@ -63,6 +63,7 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
         searchButton = (ImageView) findViewById(R.id.imageViewSearch);
         searchEditText = (EditText) findViewById(R.id.searchPlayer);
         search = (TextInputLayout) findViewById(R.id.search);
+        back = (ImageView) findViewById(R.id.backAdmin);
         toolbar = (Toolbar) findViewById(R.id.toolbarAdmin);
         setSupportActionBar(toolbar);
 
@@ -102,6 +103,14 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminActivity.this,HomeActivity.class);
+                AdminActivity.this.startActivity(intent);
             }
         });
     }
