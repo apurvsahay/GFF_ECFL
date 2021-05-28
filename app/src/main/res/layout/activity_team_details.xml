@@ -33,8 +33,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:title=" GFF | ECFL"
-                app:titleTextColor="#FFFFFF" />
+                app:title="GFF | ECFL"
+                app:titleTextColor="#FFFFFF"
+                app:titleMarginStart="40dp"/>
+
+            <!-- Right most ImageView -->
+            <ImageView
+                android:id="@+id/backTeamDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@+id/toolbar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/abc_vector_test"
+                android:visibility="visible"
+                android:contentDescription="back"
+                android:layout_marginLeft="5dip"
+                android:layout_marginTop="5dip" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

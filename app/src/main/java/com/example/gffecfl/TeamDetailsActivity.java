@@ -6,7 +6,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.gffecfl.Adapter.FragmentHomeAdapter;
 import com.example.gffecfl.Adapter.FragmentTeamDetailsAdapter;
@@ -28,7 +31,7 @@ public class TeamDetailsActivity extends AppCompatActivity {
 
     TabLayout tabLayout ;
     ViewPager2 viewPager2;
-    FragmentHomeAdapter fragmentHomeAdapter;
+    ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,7 @@ public class TeamDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_team_details);
 
         teamName = getIntent().getStringExtra("teamName");
+        back= findViewById(R.id.backTeamDetails);
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayoutHome);
         viewPager2 = (ViewPager2) findViewById(R.id.viewPagerHome);
@@ -71,10 +75,17 @@ public class TeamDetailsActivity extends AppCompatActivity {
             }
         });
 
-        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setTitle(teamName);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TeamDetailsActivity.this,RakingsActivity.class);
+                TeamDetailsActivity.this.startActivity(intent);
+            }
+        });
     }
 }
