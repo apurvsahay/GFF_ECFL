@@ -160,35 +160,37 @@ public class SquadFragment extends Fragment {
         DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
         DatabaseReference squadReference = reference1.child("Squads").child(teamName);
 
-        squadReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                squadList.clear();
-                Double spent = 0.0;
-                int totalPoints = 0;
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    SquadPlayers squadPlayer = dataSnapshot.getValue(SquadPlayers.class);
-                    String squadPlayername = squadPlayer.getName();
-                    Players player = playersMap.get(squadPlayername);
-                    squadList.add(player);
+        if(squadReference!= null) {
+            squadReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    squadList.clear();
+                    Double spent = 0.0;
+                    int totalPoints = 0;
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        SquadPlayers squadPlayer = dataSnapshot.getValue(SquadPlayers.class);
+                        String squadPlayername = squadPlayer.getName();
+                        Players player = playersMap.get(squadPlayername);
+                        squadList.add(player);
 
-                    spent += Double.parseDouble(player.getSellingPrice());
-                    totalPoints += Integer.parseInt(player.getPoints());
+                        spent += Double.parseDouble(player.getSellingPrice());
+                        totalPoints += Integer.parseInt(player.getPoints());
+                    }
+                    Double left = (300.0 - spent);
+                    budgetSpent.setText(Double.toString(spent));
+                    budgetLeft.setText(Double.toString(left));
+                    points.setText(Integer.toString(totalPoints));
+                    numberPlayers.setText(Integer.toString(squadList.size()));
+
+                    adapter = new TeamListAdapter(getContext(), squadList);
+                    listView.setAdapter(adapter);
                 }
-                Double left = (300.0 - spent);
-                budgetSpent.setText(Double.toString(spent));
-                budgetLeft.setText(Double.toString(left));
-                points.setText(Integer.toString(totalPoints));
-                numberPlayers.setText(Integer.toString(squadList.size()));
 
-                adapter = new TeamListAdapter(getContext() , squadList);
-                listView.setAdapter(adapter);
-            }
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
+                }
+            });
+        }
     }
 }

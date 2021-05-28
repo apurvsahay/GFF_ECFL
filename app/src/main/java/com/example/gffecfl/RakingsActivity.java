@@ -117,7 +117,10 @@ public class RakingsActivity extends AppCompatActivity {
                 rankingsList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Teams team = dataSnapshot.getValue(Teams.class);
-                    int points = pointsMap.get(team.getName());
+                    int points = 0;
+                    if(pointsMap.get(team.getName()) != null){
+                        points = pointsMap.get(team.getName());
+                    }
 
                     Rankings ranking = new Rankings(team.getName(),team.getLeader(),team.getMember(),points);
                     rankingsList.add(ranking);
