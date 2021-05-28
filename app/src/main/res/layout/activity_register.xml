@@ -64,6 +64,7 @@
         android:background="#408bff"
         style="@style/headerText"
         android:layout_gravity="center"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:textColor="@color/black"/>
 
 </RelativeLayout>

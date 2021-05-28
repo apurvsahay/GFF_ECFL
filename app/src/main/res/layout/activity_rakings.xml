@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".RakingsActivity">
 
     <!-- AppBar layout for using Toolbar as AppBar -->
@@ -58,7 +59,8 @@
     <ListView
         android:id="@+id/listRanks"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="1"
         android:divider="#FFFFFF"
         android:dividerHeight="5dp"
         android:layout_below="@id/appBarLayout"
@@ -66,4 +68,17 @@
         android:layout_marginTop="5dp"
         />
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Designed by Apurv"
+        android:background="#408bff"
+        android:textColor="@color/black"
+        style="@style/headerText"
+        android:textSize="10dp"
+        android:layout_gravity="center"
+        android:paddingBottom="2dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</LinearLayout>
