@@ -162,7 +162,7 @@ public class SquadFragment extends Fragment {
         DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
         DatabaseReference squadReference = reference1.child("Squads").child(teamName);
 
-        if(squadReference!= null) {
+        if(squadReference != null) {
             squadReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
