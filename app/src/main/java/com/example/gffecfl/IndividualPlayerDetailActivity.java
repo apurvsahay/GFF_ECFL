@@ -175,7 +175,9 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
                     pointsET2.setText(snapshot.child("points2").getValue(String.class));
                     pointsET3.setText(snapshot.child("points3").getValue(String.class));
                     String status = snapshot.child("inStartingEleven").getValue(String.class);
-                    radioGroup.check(R.id.radioYes);
+                    if(status.equals("Yes")) {
+                        radioGroup.check(R.id.radioYes);
+                    }
                 }
 
                 @Override
