@@ -133,21 +133,23 @@ public class StartingElevenFragment extends Fragment {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
         DatabaseReference playersReference = reference.child("Players");
-        playersReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Players player = dataSnapshot.getValue(Players.class);
-                    playersMap.put(player.getName(),player);
+        if(playersReference != null) {
+            playersReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Players player = dataSnapshot.getValue(Players.class);
+                        playersMap.put(player.getName(), player);
+                    }
+                    populateListView();
                 }
-                populateListView();
-            }
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
 
     }
 

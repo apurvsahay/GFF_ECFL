@@ -72,39 +72,39 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         DatabaseReference playersReference = reference.child("Players");
 
-        playersReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Players players = dataSnapshot.getValue(Players.class);
-                    playersList.add(players);
-                    allPlayersList.add(players);
-                    if(players.getPosition().equals("Forward")){
-                        forwardsList.add(players);
-                        allForwardsList.add(players);
+        if(playersReference != null) {
+
+            playersReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Players players = dataSnapshot.getValue(Players.class);
+                        playersList.add(players);
+                        allPlayersList.add(players);
+                        if (players.getPosition().equals("Forward")) {
+                            forwardsList.add(players);
+                            allForwardsList.add(players);
+                        } else if (players.getPosition().equals("Midfielder")) {
+                            midList.add(players);
+                            allMidList.add(players);
+                        } else if (players.getPosition().equals("Defender")) {
+                            defList.add(players);
+                            allDefList.add(players);
+                        } else {
+                            gkList.add(players);
+                            allgkList.add(players);
+                        }
                     }
-                    else if(players.getPosition().equals("Midfielder")) {
-                        midList.add(players);
-                        allMidList.add(players);
-                    }
-                    else if (players.getPosition().equals("Defender")) {
-                        defList.add(players);
-                        allDefList.add(players);
-                    }
-                    else {
-                        gkList.add(players);
-                        allgkList.add(players);
-                    }
+                    adapter = new AdminListAdapter(AdminActivity.this, playersList);
+                    listView.setAdapter(adapter);
                 }
-                adapter = new AdminListAdapter(AdminActivity.this,playersList);
-                listView.setAdapter(adapter);
-            }
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
