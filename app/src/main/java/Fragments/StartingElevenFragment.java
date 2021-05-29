@@ -181,6 +181,7 @@ public class StartingElevenFragment extends Fragment {
                         count++;
                     }
                     Double left = (300.0 - spent);
+                    left = Math.round(left * 100.0)/100.0;
                     budgetSpent.setText(Double.toString(spent));
                     budgetLeft.setText(Double.toString(left));
                     points.setText(Integer.toString(totalPoints));

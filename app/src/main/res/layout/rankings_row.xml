@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/list_selector"
+    android:background="@drawable/ranking_selector"
     android:orientation="horizontal"
     android:padding="5dip">
 
@@ -98,7 +98,7 @@
         android:layout_marginRight="5dip"
         android:text="135"
         android:textSize="30dip"
-        android:textColor="#10bcc9"
+        android:textColor="#053337"
         android:textStyle="bold"/>
 
 </RelativeLayout>
