@@ -10,8 +10,8 @@
         android:title="Midfielders" />
     <item android:id="@+id/optionForwards"
         android:title="Forwards" />
-    <item android:id="@+id/optionAddPlayer"
-        android:title="Add Player" />
+    <item android:id="@+id/searchByCountry"
+        android:title="Search By Country" />
     <item android:id="@+id/optionEliminateCountry"
         android:title="Eliminate Country" />
 </menu>

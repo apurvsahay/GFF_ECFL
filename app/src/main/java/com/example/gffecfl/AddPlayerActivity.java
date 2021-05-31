@@ -60,6 +60,7 @@ public class AddPlayerActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    countryList.clear();
                     countryList.add(dataSnapshot.getValue(String.class));
                 }
             }

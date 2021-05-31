@@ -39,7 +39,7 @@ import java.util.List;
 public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     ListView listView;
-    ImageView searchButton,back;
+    ImageView searchButton,back,add;
     EditText searchEditText;
     TextInputLayout search;
     androidx.appcompat.widget.Toolbar toolbar;
@@ -68,6 +68,7 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
         search = (TextInputLayout) findViewById(R.id.search);
         back = (ImageView) findViewById(R.id.backAdmin);
         toolbar = (Toolbar) findViewById(R.id.toolbarAdmin);
+        add = (ImageView) findViewById(R.id.imageViewAdd);
         setSupportActionBar(toolbar);
 
         listView = (ListView)findViewById(R.id.list);
@@ -123,6 +124,15 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AdminActivity.this,HomeActivity.class);
+                AdminActivity.this.startActivity(intent);
+            }
+        });
+
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AdminActivity.this,AddPlayerActivity.class);
+                intent.putExtra("isAdmin",isAdmin);
                 AdminActivity.this.startActivity(intent);
             }
         });
@@ -289,11 +299,9 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 listView.setAdapter(adapter);
                 getSupportActionBar().setTitle("Forwards");
                 return true;
-            case R.id.optionAddPlayer:
-                Intent intent = new Intent(AdminActivity.this,AddPlayerActivity.class);
-                intent.putExtra("isAdmin",isAdmin);
-                AdminActivity.this.startActivity(intent);
-                return true;
+            case R.id.searchByCountry:
+                Intent intent1 = new Intent(AdminActivity.this,SearchPlayerByCountry.class);
+                AdminActivity.this.startActivity(intent1);
             case R.id.optionEliminateCountry:
                 return true;
         }

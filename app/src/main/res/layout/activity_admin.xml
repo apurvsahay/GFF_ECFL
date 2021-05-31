@@ -42,6 +42,16 @@
                 app:titleTextColor="#FFFFFF" />
 
             <ImageView
+                android:id="@+id/imageViewAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginRight="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/imageViewSearch"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_input_add" />
+
+            <ImageView
                 android:id="@+id/imageViewSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
