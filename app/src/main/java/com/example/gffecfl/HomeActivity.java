@@ -134,6 +134,10 @@ public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 FirebaseAuth.getInstance().signOut();
                 HomeActivity.this.startActivity(intent1);
                 return true;
+            case R.id.optionRules:
+                Intent intent2 = new Intent(HomeActivity.this,Rules.class);
+                HomeActivity.this.startActivity(intent2);
+                return true;
         }
         return false;
     }

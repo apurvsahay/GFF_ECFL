@@ -3,8 +3,9 @@
     <item android:id="@+id/optionRank"
         android:title="Rankings"/>
     <item android:id="@+id/option1"
-        android:title="Players"
-        />
+        android:title="Players" />
+    <item android:id="@+id/optionRules"
+        android:title="Rules" />
     <item android:id="@+id/option2"
         android:title="Logout" />
 </menu>
