@@ -40,6 +40,7 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
     List<String> teamsList = new ArrayList<>();
     RadioGroup radioGroup;
     RadioButton radioButton;
+    String isAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
         super.onStart();
 
         player = (Players) getIntent().getSerializableExtra("Player");
+        isAdmin = getIntent().getStringExtra("isAdmin");
 
         populateView();
 
@@ -92,19 +94,27 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
         sellButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sellingPrice = sellingPriceET.getText().toString().trim();
-                String team = teamTV.getText().toString().trim();
-                if(player.getSoldTo().equals("NA")) {
-                    if (!sellingPrice.equals("") && !team.equals("")) {
-                        player.setSellingPrice(sellingPrice);
-                        player.setSoldTo(team);
-                        addSoldPlayerToTeamFirebase(team, player);
+                if (isAdmin.equals("Yes")) {
+                    String sellingPrice = sellingPriceET.getText().toString().trim();
+                    String team = teamTV.getText().toString().trim();
+                    if (player.getSoldTo().equals("NA")) {
+                        if (!sellingPrice.equals("") && !team.equals("")) {
+                            player.setSellingPrice(sellingPrice);
+                            player.setSoldTo(team);
+                            addSoldPlayerToTeamFirebase(team, player);
+                            updatePlayerFirebase(player);
+                            Toast.makeText(IndividualPlayerDetailActivity.this,"Player sold successfully",Toast.LENGTH_LONG).show();
+                            Intent intent =new Intent(IndividualPlayerDetailActivity.this,AdminActivity.class);
+                            IndividualPlayerDetailActivity.this.startActivity(intent);
+                        } else {
+                            Toast.makeText(IndividualPlayerDetailActivity.this, "Please insert values in all the fields", Toast.LENGTH_LONG).show();
+                        }
                     } else {
-                        Toast.makeText(IndividualPlayerDetailActivity.this, "Please insert values in all the fields", Toast.LENGTH_LONG).show();
+                        Toast.makeText(IndividualPlayerDetailActivity.this, "Player already sold", Toast.LENGTH_LONG).show();
                     }
                 }
-                else {
-                    Toast.makeText(IndividualPlayerDetailActivity.this, "Player already sold", Toast.LENGTH_LONG).show();
+                else{
+                    Toast.makeText(IndividualPlayerDetailActivity.this, "You are not an admin", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -112,29 +122,37 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
         updatePointsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String points1,points2,points3;
-                points1=pointsET1.getText().toString().trim();
-                points2=pointsET2.getText().toString().trim();
-                points3=pointsET3.getText().toString().trim();
+                if (isAdmin.equals("Yes")) {
+                    String points1, points2, points3;
+                    points1 = pointsET1.getText().toString().trim();
+                    points2 = pointsET2.getText().toString().trim();
+                    points3 = pointsET3.getText().toString().trim();
 
-                if(!points1.equals("") && !points2.equals("") && !points3.equals("")){
-                    updatePointsFirebase(points1,points2,points3,player);
+                    if (!points1.equals("") && !points2.equals("") && !points3.equals("")) {
+                        updatePointsFirebase(points1, points2, points3, player);
+                    } else {
+                        Toast.makeText(IndividualPlayerDetailActivity.this, "Please insert values into all fields", Toast.LENGTH_LONG).show();
+                    }
                 }
-                else {
-                    Toast.makeText(IndividualPlayerDetailActivity.this,"Please insert values into all fields",Toast.LENGTH_LONG).show();
+                else{
+                    Toast.makeText(IndividualPlayerDetailActivity.this, "You are not an admin", Toast.LENGTH_LONG).show();
                 }
-
             }
         });
 
         updateStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int selectedId = radioGroup.getCheckedRadioButtonId();
-                radioButton = (RadioButton)findViewById(selectedId);
-                String status = radioButton.getText().toString();
+                if (isAdmin.equals("Yes")) {
+                    int selectedId = radioGroup.getCheckedRadioButtonId();
+                    radioButton = (RadioButton) findViewById(selectedId);
+                    String status = radioButton.getText().toString();
 
-                updateStatusFirebase(status);
+                    updateStatusFirebase(status);
+                }
+                else{
+                    Toast.makeText(IndividualPlayerDetailActivity.this, "You are not an admin", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -157,7 +175,9 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
                     pointsET2.setText(snapshot.child("points2").getValue(String.class));
                     pointsET3.setText(snapshot.child("points3").getValue(String.class));
                     String status = snapshot.child("inStartingEleven").getValue(String.class);
-                    radioGroup.check(R.id.radioYes);
+                    if(status.equals("Yes")) {
+                        radioGroup.check(R.id.radioYes);
+                    }
                 }
 
                 @Override
@@ -222,13 +242,11 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("Players");
 
-        databaseReference.child(player.getName()).setValue(player).addOnCompleteListener(new OnCompleteListener<Void>() {
+        (databaseReference.child(player.getName()).setValue(player)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    Toast.makeText(IndividualPlayerDetailActivity.this,"Player sold successfully",Toast.LENGTH_LONG).show();
-                    Intent intent =new Intent(IndividualPlayerDetailActivity.this,AdminActivity.class);
-                    IndividualPlayerDetailActivity.this.startActivity(intent);
+
                 }
                 else {
                     Toast.makeText(IndividualPlayerDetailActivity.this,"Error selling player",Toast.LENGTH_LONG).show();
@@ -243,11 +261,11 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
 
         SquadPlayers squadPlayer = new SquadPlayers(player.getName(),"No");
 
-        databaseReference.child(team).child(player.getName()).setValue(squadPlayer).addOnCompleteListener(new OnCompleteListener<Void>() {
+        (databaseReference.child(team).child(player.getName()).setValue(squadPlayer)).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if(task.isSuccessful()) {
-                    updatePlayerFirebase(player);
+
                 }
                 else {
                     Toast.makeText(IndividualPlayerDetailActivity.this,"Error selling player",Toast.LENGTH_LONG).show();

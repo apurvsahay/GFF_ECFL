@@ -54,6 +54,9 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
     List<Players> forwardsList = new ArrayList<>();
     List<Players> allForwardsList = new ArrayList<>();
     AdminListAdapter adapter;
+    String uid;
+    List<String> adminsList= new ArrayList<>();
+    String isAdmin="No";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,39 +75,39 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         DatabaseReference playersReference = reference.child("Players");
 
-        playersReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Players players = dataSnapshot.getValue(Players.class);
-                    playersList.add(players);
-                    allPlayersList.add(players);
-                    if(players.getPosition().equals("Forward")){
-                        forwardsList.add(players);
-                        allForwardsList.add(players);
+        if(playersReference != null) {
+
+            playersReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Players players = dataSnapshot.getValue(Players.class);
+                        playersList.add(players);
+                        allPlayersList.add(players);
+                        if (players.getPosition().equals("Forward")) {
+                            forwardsList.add(players);
+                            allForwardsList.add(players);
+                        } else if (players.getPosition().equals("Midfielder")) {
+                            midList.add(players);
+                            allMidList.add(players);
+                        } else if (players.getPosition().equals("Defender")) {
+                            defList.add(players);
+                            allDefList.add(players);
+                        } else {
+                            gkList.add(players);
+                            allgkList.add(players);
+                        }
                     }
-                    else if(players.getPosition().equals("Midfielder")) {
-                        midList.add(players);
-                        allMidList.add(players);
-                    }
-                    else if (players.getPosition().equals("Defender")) {
-                        defList.add(players);
-                        allDefList.add(players);
-                    }
-                    else {
-                        gkList.add(players);
-                        allgkList.add(players);
-                    }
+                    adapter = new AdminListAdapter(AdminActivity.this, playersList);
+                    listView.setAdapter(adapter);
                 }
-                adapter = new AdminListAdapter(AdminActivity.this,playersList);
-                listView.setAdapter(adapter);
-            }
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +121,30 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
     @Override
     protected void onStart() {
         super.onStart();
+
+        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference adminsReference = reference.child("Admins");
+
+        if(adminsReference !=null){
+            adminsReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                        adminsList.add(dataSnapshot.child("id").getValue(String.class));
+                    }
+                    if(adminsList.contains(uid)){
+                        isAdmin="Yes";
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                }
+            });
+        }
 
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +237,7 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
                 Intent intent = new Intent(AdminActivity.this,IndividualPlayerDetailActivity.class);
                 intent.putExtra("Player", player);
+                intent.putExtra("isAdmin",isAdmin);
                 AdminActivity.this.startActivity(intent);
             }
         });
@@ -253,6 +281,7 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 return true;
             case R.id.optionAddPlayer:
                 Intent intent = new Intent(AdminActivity.this,AddPlayerActivity.class);
+                intent.putExtra("isAdmin",isAdmin);
                 AdminActivity.this.startActivity(intent);
                 return true;
             case R.id.optionEliminateCountry:

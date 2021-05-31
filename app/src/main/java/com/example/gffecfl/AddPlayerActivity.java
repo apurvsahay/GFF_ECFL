@@ -34,11 +34,14 @@ public class AddPlayerActivity extends AppCompatActivity {
     Button addPlayerButton;
     List<String> pos= new ArrayList<>();
     List<String> countryList = new ArrayList<>();
+    String isAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_player);
+
+        isAdmin = getIntent().getStringExtra("isAdmin");
 
         countries = (AutoCompleteTextView) findViewById(R.id.addPlayerCountry);
         playerPosition = (AutoCompleteTextView) findViewById(R.id.addPlayerPosition);
@@ -83,19 +86,23 @@ public class AddPlayerActivity extends AppCompatActivity {
         addPlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = playerName.getText().toString();
-                String country = countries.getText().toString();
-                String position = playerPosition.getText().toString();
+                if (isAdmin.equals("Yes")) {
+                    String name = playerName.getText().toString();
+                    String country = countries.getText().toString();
+                    String position = playerPosition.getText().toString();
 
-                if(name!=null && country!=null && position!=null){
-                    if(!name.equals("") && !country.equals("") && !position.equals("")){
-                        addPlayerToFirebase(name,country,position);
-                        Intent intent =new Intent(AddPlayerActivity.this,AdminActivity.class);
-                        AddPlayerActivity.this.startActivity(intent);
+                    if (name != null && country != null && position != null) {
+                        if (!name.equals("") && !country.equals("") && !position.equals("")) {
+                            addPlayerToFirebase(name, country, position);
+                            Intent intent = new Intent(AddPlayerActivity.this, AdminActivity.class);
+                            AddPlayerActivity.this.startActivity(intent);
+                        } else {
+                            Toast.makeText(AddPlayerActivity.this, "Please insert values for all the fields.", Toast.LENGTH_LONG).show();
+                        }
                     }
-                    else {
-                        Toast.makeText(AddPlayerActivity.this,"Please insert values for all the fields.",Toast.LENGTH_LONG).show();
-                    }
+                }
+                else{
+                    Toast.makeText(AddPlayerActivity.this, "You are not an admin", Toast.LENGTH_LONG).show();
                 }
             }
         });

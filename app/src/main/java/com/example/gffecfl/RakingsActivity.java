@@ -83,28 +83,31 @@ public class RakingsActivity extends AppCompatActivity {
         DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference();
         DatabaseReference squadReference = reference1.child("Squads");
 
-        squadReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    int points = 0;
-                    for (DataSnapshot playerSnapshot : dataSnapshot.getChildren()){
-                        SquadPlayers player = playerSnapshot.getValue(SquadPlayers.class);
-                        int points1 = Integer.parseInt(player.getPoints1());
-                        int points2 = Integer.parseInt(player.getPoints2());
-                        int points3 = Integer.parseInt(player.getPoints3());
-                        points = points + points1 +points2 + points3;
+        if(squadReference !=null) {
+
+            squadReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        int points = 0;
+                        for (DataSnapshot playerSnapshot : dataSnapshot.getChildren()) {
+                            SquadPlayers player = playerSnapshot.getValue(SquadPlayers.class);
+                            int points1 = Integer.parseInt(player.getPoints1());
+                            int points2 = Integer.parseInt(player.getPoints2());
+                            int points3 = Integer.parseInt(player.getPoints3());
+                            points = points + points1 + points2 + points3;
+                        }
+                        pointsMap.put(dataSnapshot.getKey(), points);
                     }
-                    pointsMap.put(dataSnapshot.getKey(),points);
+                    getTeamDetails();
                 }
-                getTeamDetails();
-            }
 
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                @Override
+                public void onCancelled(@NonNull @NotNull DatabaseError error) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     private void getTeamDetails() {
