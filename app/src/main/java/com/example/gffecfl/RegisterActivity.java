@@ -60,29 +60,33 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = email.getText().toString();
+                String username = email.getText().toString().trim();
                 String pass = password.getText().toString();
-                String team_lead = leader.getText().toString();
-                String team_member = member.getText().toString();
-                String team_name = team.getText().toString();
+                String team_lead = leader.getText().toString().trim();
+                String team_member = member.getText().toString().trim();
+                String team_name = team.getText().toString().trim();
 
-                firebaseAuth.createUserWithEmailAndPassword(username,pass)
-                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()){
-                                    addTeamToFirebase(firebaseAuth.getCurrentUser().getUid(),team_name,team_lead,team_member);
-                                    Toast.makeText(RegisterActivity.this,
-                                            "Registration Successful",Toast.LENGTH_LONG).show();
-                                    Intent intent =new Intent(RegisterActivity.this,HomeActivity.class);
-                                    RegisterActivity.this.startActivity(intent);
+                if(!username.equals("") && !pass.equals("") && !team_lead.equals("") && !team_name.equals("")) {
+                    firebaseAuth.createUserWithEmailAndPassword(username, pass)
+                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        addTeamToFirebase(firebaseAuth.getCurrentUser().getUid(), team_name, team_lead, team_member);
+                                        Toast.makeText(RegisterActivity.this,
+                                                "Registration Successful", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+                                        RegisterActivity.this.startActivity(intent);
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this,
+                                                "Unsuccessful", Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                                else {
-                                    Toast.makeText(RegisterActivity.this,
-                                            "Unsuccessful",Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
+                            });
+                }
+                else {
+                    Toast.makeText(RegisterActivity.this,"Please enter values in all fields",Toast.LENGTH_LONG).show();
+                }
             }
         });
 

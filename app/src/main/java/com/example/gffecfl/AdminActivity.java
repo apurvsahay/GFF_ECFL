@@ -80,6 +80,16 @@ public class AdminActivity extends AppCompatActivity implements PopupMenu.OnMenu
             playersReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                    playersList.clear();
+                    allPlayersList.clear();
+                    forwardsList.clear();
+                    allPlayersList.clear();
+                    midList.clear();
+                    allMidList.clear();
+                    defList.clear();
+                    allDefList.clear();
+                    gkList.clear();
+                    allgkList.clear();
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         Players players = dataSnapshot.getValue(Players.class);
                         playersList.add(players);

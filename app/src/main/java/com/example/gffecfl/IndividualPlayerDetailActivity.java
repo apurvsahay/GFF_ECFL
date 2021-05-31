@@ -101,11 +101,8 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
                         if (!sellingPrice.equals("") && !team.equals("")) {
                             player.setSellingPrice(sellingPrice);
                             player.setSoldTo(team);
-                            addSoldPlayerToTeamFirebase(team, player);
-                            updatePlayerFirebase(player);
-                            Toast.makeText(IndividualPlayerDetailActivity.this,"Player sold successfully",Toast.LENGTH_LONG).show();
-                            Intent intent =new Intent(IndividualPlayerDetailActivity.this,AdminActivity.class);
-                            IndividualPlayerDetailActivity.this.startActivity(intent);
+                            //Important - call updatePlayerFirebase before addSoldPlayerToTeamFirebase
+                            updatePlayerFirebase(team,player);
                         } else {
                             Toast.makeText(IndividualPlayerDetailActivity.this, "Please insert values in all the fields", Toast.LENGTH_LONG).show();
                         }
@@ -238,7 +235,7 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void updatePlayerFirebase(Players player) {
+    private void updatePlayerFirebase(String team,Players player) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = firebaseDatabase.getReference("Players");
 
@@ -246,7 +243,7 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if (task.isSuccessful()){
-
+                        addSoldPlayerToTeamFirebase(team,player);
                 }
                 else {
                     Toast.makeText(IndividualPlayerDetailActivity.this,"Error selling player",Toast.LENGTH_LONG).show();
@@ -265,7 +262,9 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull @NotNull Task<Void> task) {
                 if(task.isSuccessful()) {
-
+                    Toast.makeText(IndividualPlayerDetailActivity.this,"Player sold successfully",Toast.LENGTH_LONG).show();
+                    Intent intent =new Intent(IndividualPlayerDetailActivity.this,AdminActivity.class);
+                    IndividualPlayerDetailActivity.this.startActivity(intent);
                 }
                 else {
                     Toast.makeText(IndividualPlayerDetailActivity.this,"Error selling player",Toast.LENGTH_LONG).show();
