@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
@@ -42,6 +43,7 @@ public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     TabLayout tabLayout ;
     ViewPager2 viewPager2;
     FragmentHomeAdapter fragmentHomeAdapter;
+    ImageView info;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +52,7 @@ public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayoutHome);
         viewPager2 = (ViewPager2) findViewById(R.id.viewPagerHome);
+        info = (ImageView) findViewById(R.id.imageViewInfo);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentHomeAdapter = new FragmentHomeAdapter(fragmentManager , getLifecycle());
@@ -102,6 +105,14 @@ public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             }
         });
 
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2 = new Intent(HomeActivity.this,Rules.class);
+                HomeActivity.this.startActivity(intent2);
+            }
+        });
+
     }
 
 
@@ -133,10 +144,6 @@ public class HomeActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 Intent intent1 = new Intent(HomeActivity.this,MainActivity.class);
                 FirebaseAuth.getInstance().signOut();
                 HomeActivity.this.startActivity(intent1);
-                return true;
-            case R.id.optionRules:
-                Intent intent2 = new Intent(HomeActivity.this,Rules.class);
-                HomeActivity.this.startActivity(intent2);
                 return true;
         }
         return false;

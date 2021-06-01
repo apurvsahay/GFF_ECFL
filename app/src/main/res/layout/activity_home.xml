@@ -48,6 +48,17 @@
                 app:srcCompat="@drawable/ic_baseline_more_vert_24"
                 android:onClick="showPopup"/>
 
+            <!-- Right most ImageView -->
+            <ImageView
+                android:id="@+id/imageViewInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginRight="12dp"
+                app:layout_constraintRight_toLeftOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_dialog_info" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

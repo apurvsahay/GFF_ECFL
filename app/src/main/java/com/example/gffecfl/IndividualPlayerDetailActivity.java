@@ -76,6 +76,7 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
         teamsReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                teamsList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     teamsList.add(dataSnapshot.child("Name").getValue(String.class));
                 }

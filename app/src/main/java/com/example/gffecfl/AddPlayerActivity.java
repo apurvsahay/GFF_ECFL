@@ -59,8 +59,8 @@ public class AddPlayerActivity extends AppCompatActivity {
         countryReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                countryList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    countryList.clear();
                     countryList.add(dataSnapshot.getValue(String.class));
                 }
             }
