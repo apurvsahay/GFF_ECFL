@@ -57,6 +57,9 @@ public class IndividualPlayerDetailActivity extends AppCompatActivity {
         updatePointsButton=(Button) findViewById(R.id.updatePointsButton);
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         updateStatusButton = (Button) findViewById(R.id.updateStatusButton);
+
+        pointsET1.setKeyListener(null);
+        pointsET1.setEnabled(false);
     }
 
     @Override
